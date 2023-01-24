@@ -3,14 +3,14 @@ import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayoutSnippets'
 import { PageSEO } from '@/components/SEO'
 
-export const POSTS_PER_PAGE = 5
+export const SNIPPETS_PER_PAGE = 5
 
 export async function getStaticProps() {
   const snippets = await getAllFilesFrontMatter('snippets')
-  const initialDisplayPosts = snippets.slice(0, POSTS_PER_PAGE)
+  const initialDisplayPosts = snippets.slice(0, SNIPPETS_PER_PAGE)
   const pagination = {
     currentPage: 1,
-    totalPages: Math.ceil(snippets.length / POSTS_PER_PAGE),
+    totalPages: Math.ceil(snippets.length / SNIPPETS_PER_PAGE),
   }
 
   return { props: { initialDisplayPosts, snippets, pagination } }
