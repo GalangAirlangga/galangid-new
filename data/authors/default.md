@@ -1,16 +1,16 @@
 ---
-name: Tails Azimuth
-avatar: /static/images/avatar.png
-occupation: Professor of Atmospheric Science
-company: Stanford University
+name: Galang Airlangga
+avatar: /static/images/avatar.jpg
+occupation: Backend Developer
+company: Escredia
 email: address@yoursite.com
-twitter: https://twitter.com/Twitter
-linkedin: https://www.linkedin.com
-github: https://github.com
+twitter: https://twitter.com/galangairlanggp
+linkedin: https://www.linkedin.com/in/galang-airlangga-pratama/
+github: https://github.com/GalangAirlangga
 ---
 
-Tails Azimuth is a professor of atmospheric sciences at the Stanford AI Lab. His research interests includes complexity modelling of tailwinds, headwinds and crosswinds.
-
-He leads the clean energy group which develops 3D air pollution-climate models, writes differential equation solvers, and manufactures titanium plated air ballons. In his free time he bakes raspberry pi.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+Hello, my name is Galang Airlangga. I am a backend programmer in a private company.
+Currently, I'm working on several projects using Laravel framework and MySQL database.
+Besides work, I also have a hobby of watching movies and playing games. This portfolio
+website is created to introduce myself and to show some of the projects I've worked
+on.

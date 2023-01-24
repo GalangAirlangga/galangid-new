@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
+import { useRouter } from 'next/router'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
@@ -16,7 +17,7 @@ const MobileNav = () => {
       return !status
     })
   }
-
+  const router = useRouter()
   return (
     <div className="sm:hidden">
       <button
@@ -39,7 +40,7 @@ const MobileNav = () => {
         </svg>
       </button>
       <div
-        className={`fixed top-0 left-0 z-10 h-full w-full transform bg-gray-200 opacity-95 duration-300 ease-in-out dark:bg-gray-800 ${
+        className={`fixed top-0 left-0 z-10 h-full w-full transform bg-gray-100 opacity-95 duration-300 ease-in-out dark:bg-gray-800 ${
           navShow ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -69,7 +70,11 @@ const MobileNav = () => {
             <div key={link.title} className="px-12 py-4">
               <Link
                 href={link.href}
-                className="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
+                className={`${
+                  router.pathname == link.href
+                    ? 'font-bold text-gray-800 dark:text-blue-500'
+                    : 'font-medium text-gray-900 dark:text-blue-100'
+                } text-2xl tracking-widest`}
                 onClick={onToggleNav}
               >
                 {link.title}

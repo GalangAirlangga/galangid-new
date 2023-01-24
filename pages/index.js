@@ -4,7 +4,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
-
+import Image from 'next/image'
 import NewsletterForm from '@/components/NewsletterForm'
 
 const MAX_DISPLAY = 5
@@ -19,9 +19,30 @@ export default function Home({ posts }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
+      <div className="mt-12 flex flex-col-reverse items-start sm:flex-row">
+        <div className="flex flex-col pr-8">
+          <h1 className="mb-1 text-3xl font-bold tracking-tight text-black dark:text-white md:text-5xl">
+            {siteMetadata.author}
+          </h1>
+          <h2 className="mb-4 text-gray-700 dark:text-gray-200">Backend Developer</h2>
+          <p className="mb-16 text-gray-600 dark:text-gray-400">
+            I am now working remotely as a Backend Developer at Escredia.
+            <br /> some projects that I have made using Laravel.
+          </p>
+        </div>
+        <div className="relative mb-8 ml-auto mr-auto w-[120px] sm:mb-0 sm:w-[176px]">
+          <Image
+            className="rounded-full"
+            src="/static/images/avatar.jpg"
+            alt="Picture of the author"
+            width={500}
+            height={500}
+          />
+        </div>
+      </div>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-2xl sm:leading-10 md:text-4xl md:leading-14">
             Latest
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
