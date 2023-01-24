@@ -28,7 +28,7 @@ module.exports = {
         sans: ['Outfit', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: colors.lightBlue,
+        primary: colors.sky,
         gray: colors.neutral,
       },
       typography: (theme) => ({
