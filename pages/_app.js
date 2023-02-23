@@ -1,7 +1,7 @@
 import '@/css/tailwind.css'
 import '@/css/prism.css'
 import 'katex/dist/katex.css'
-
+import { AnalyticsVercel } from '@vercel/analytics/react'
 import '@fontsource/outfit'
 
 import { ThemeProvider } from 'next-themes'
@@ -26,6 +26,7 @@ export default function App({ Component, pageProps }) {
       <LayoutWrapper>
         <Component {...pageProps} />
       </LayoutWrapper>
+      <AnalyticsVercel />
     </ThemeProvider>
   )
 }
