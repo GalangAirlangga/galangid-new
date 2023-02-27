@@ -1,0 +1,723 @@
+---
+title: 'Catatan Go : Basic'
+date: '2023-01-30'
+lastmod: '2023-01-30'
+tags: ['go', 'tutorial']
+draft: false
+summary: 'Go adalah bahasa pemrograman yang dikembangkan oleh Google.
+Ini bertujuan untuk menyediakan kecepatan pengembangan, efisiensi, dan skalabilitas.'
+authors: ['default']
+---
+
+<TOCInline toc={props.toc} asDisclosure />
+
+## Basic Syntax
+
+Berikut ini basic syntax golang, yang bisa kamu coba untuk menampilkan kata-kata "Hello World"
+
+```go:hello.go showLineNumbers
+package main
+
+import "fmt"
+
+func main(){
+   fmt.Println("Hello World")
+}
+
+```
+
+Kompilasi File Go
+
+```bash
+$ go build <namafile>
+
+$ go build helloworld.go
+$ ./helloworld
+
+Hello World
+
+--- Atau bisa langsung running ---
+
+$ go run helloworld.go
+
+Hello World
+
+```
+
+Catatan :
+
+- file yang dibuild akan berbentuk sesuai dengan os yang di pake,contohnya kalau window .exe
+- go run hanya untuk development
+- package utama harus **main**
+- kamu bisa menggunakan ; (titik koma) ataupun engga dalam code kamu
+
+## Variables and Declaration
+
+1. Deklarasi Variabel: Variabel dapat dideklarasikan menggunakan kata kunci "**var**" atau shorthand assignment "**:=**".
+
+```go
+var name string = "John Doe"
+age := 30
+```
+
+2. Tipe Data: Go memiliki beberapa tipe data built-in seperti string, int, float, bool, dan lain-lain.
+
+```go
+var name string = "John Doe"
+var age int = 30
+var isEmployed bool = true
+```
+
+3. Multiple Declarations: Go memperbolehkan deklarasi variabel beberapa sekaligus.
+
+```go
+var (
+    name string = "John Doe"
+    age int = 30
+    isEmployed bool = true
+)
+```
+
+4. Type Inference: Go memiliki mekanisme type inference yang membuat kita tidak perlu menentukan tipe data saat deklarasi.
+
+```go
+name := "John Doe"
+age := 30
+isEmployed := true
+```
+
+5. Nilai Default: Variabel yang tidak memiliki nilai akan memiliki nilai default sesuai dengan tipe datanya.
+
+```go
+var name string
+var age int
+var isEmployed bool
+
+fmt.Println(name, age, isEmployed)
+// Output: "" 0 false
+```
+
+Contoh Code Fullnya :
+
+```go:varibale.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+
+	var (
+		name       string = "John Doe"
+		age        int    = 30
+		isEmployed bool   = true
+	)
+
+	fmt.Println(name)
+	fmt.Println(age)
+	fmt.Println(isEmployed)
+
+}
+
+```
+
+## Data Types
+
+### Intenger
+
+Golang memiliki beberapa tipe data intenger dan setiap tipe data intenger memiliki ukuran nilai yang berbeda.
+
+| Tipe Data | Nilai Minimum        | Nilai Maksimum       | Size               |
+| --------- | -------------------- | -------------------- | ------------------ |
+| int       | -                    | -                    | Platform Dependent |
+| int8      | -128                 | 127                  | 8 bits/1 byte      |
+| int16     | -32768               | 32767                | 16 bits/2 byte     |
+| int32     | -2147483648          | 2147483647           | 32 bits/4 byte     |
+| int64     | -9223372036854775808 | 9223372036854775807  | 64 bits/8 byte     |
+| uint8     | 0                    | 255                  | 8 bits/1 byte      |
+| uint16    | 0                    | 65535                | 16 bits/2 byte     |
+| uint32    | 0                    | 4294967295           | 32 bits/4 byte     |
+| uint64    | 0                    | 18446744073709551615 | 64 bits/8 byte     |
+
+    Size: Platform Dependent.
+    - Pada mesin 32 bit, ukuran int adalah 32 bit atau 4 byte.
+    - Pada mesin 64 bit, ukuran int adalah 64 bit atau 8 byte
+
+```go:intenger.go showLineNumbers
+package main
+
+import (
+   "fmt"
+   "reflect"   "unsafe")
+
+func main() {
+   //Declare a int
+   var a = 2
+
+   //Size of int8 in bytes
+   fmt.Printf("%d bytes\n", unsafe.Sizeof(a))
+   fmt.Printf("a's type is %s\n", reflect.TypeOf(a))
+
+   //Declare b int 8
+   var b int8 = 127
+
+   //Size of int8 in bytes
+   fmt.Printf("%d bytes\n", unsafe.Sizeof(b))
+   fmt.Printf("a's type is %s\n", reflect.TypeOf(b))
+
+   //Declare c int 16
+   var c int16 = 32767
+
+   //Size of int16 in bytes
+   fmt.Printf("%d bytes\n", unsafe.Sizeof(c))
+   fmt.Printf("a's type is %s\n", reflect.TypeOf(c))
+
+   //Declare d int 32
+   var d int32 = 2147483647
+
+   //Size of int32 in bytes
+   fmt.Printf("%d bytes\n", unsafe.Sizeof(d))
+   fmt.Printf("a's type is %s\n", reflect.TypeOf(d))
+
+   //Declare e int 64
+   var e int64 = 9223372036854775807
+
+   //Size of int64 in bytes
+   fmt.Printf("%d bytes\n", unsafe.Sizeof(e))
+   fmt.Printf("a's type is %s\n", reflect.TypeOf(e))
+
+}
+```
+
+### Floating Point
+
+Float adalah angka dengan desimal. Itu terdiri dari dua jenis
+
+| Tipe Data | Nilai Minimum | Nilai Maksimum | Size               |
+| --------- | ------------- | -------------- | ------------------ |
+| float32   | 1.18×10−38    | 3.4×1038       | 32 bits or 4 bytes |
+| float64   | 2.23×10−308   | 1.80×10308     | 64 bits or 8 bytes |
+
+```go:float.go showLineNumbers
+package main
+
+import (
+   "fmt"
+   "reflect"   "unsafe")
+
+func main() {
+   //Declare a float32
+   var a float32 = 2
+
+   //Size of float32 in bytes
+   fmt.Printf("%d bytes\n", unsafe.Sizeof(a))
+   fmt.Printf("a's type is %s\n", reflect.TypeOf(a))
+
+   //Declare a float64
+   var b float64 = 2
+
+   //Size of float64 in bytes
+   fmt.Printf("%d bytes\n", unsafe.Sizeof(b))
+   fmt.Printf("a's type is %s\n", reflect.TypeOf(b))
+
+   //Default is float64 when you don't specify a type
+   c := 2.3
+   fmt.Printf("b's type is %s\n", reflect.TypeOf(c))
+}
+```
+
+### Booleans
+
+Tipe datanya adalah **bool** dan memiliki dua kemungkinan nilai benar atau salah.
+
+Nilai Default: salah
+
+Operasi:
+
+- DAN - &&
+- ATAU – ||
+- Negasi – !
+
+```go:bool.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+   //Default value will be false it not initialized
+   var a bool
+   fmt.Printf("a's value is %t\n", a)
+
+   //And operation on one true and other false
+   andOperation := 1 < 2 && 1 > 3
+   fmt.Printf("Ouput of AND operation on one true and other false %t\n", andOperation)
+
+   //OR operation on one true and other false
+   orOperation := 1 < 2 || 1 > 3
+   fmt.Printf("Ouput of OR operation on one true and other false: %t\n", orOperation)
+
+   //Negation Operation on a false value
+   negationOperation := !(1 > 2)
+   fmt.Printf("Ouput of NEGATION operation on false value: %t\n", negationOperation)
+}
+```
+
+### String
+
+String adalah potongan byte hanya baca di golang. String dapat diinisialisasi dengan dua cara
+
+- menggunakan tanda kutip ganda "" misalnya "ini"
+
+String dalam tanda kutip ganda menghormati urutan pelarian. Misalnya jika string berisi "\n" maka saat mencetak akan ada baris baru
+
+- menggunakan tanda kutip balik ` misalnya \n` ini
+
+String di tanda kutip belakang hanyalah string mentah dan tidak menghormati urutan pelarian apa pun.
+
+```go:string.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+
+   var a = "initial"
+   fmt.Println(a)
+
+   var b = "initial\n"
+   fmt.Printf(b)
+
+   var c = `initial\n`
+   fmt.Printf(c)
+}
+```
+
+### Byte
+
+Byte di Go adalah alias untuk uint8 yang berarti itu adalah nilai integer. Nilai integer ini adalah 8 bit dan mewakili satu byte yaitu angka antara 0-255). Oleh karena itu, satu byte dapat mewakili karakter ASCII. Golang tidak memiliki tipe data 'char'. Karena itu
+
+- Byte digunakan untuk mewakili karakter ASCII
+- Rune digunakan untuk mewakili semua karakter UNICODE yang mencakup setiap karakter yang ada.
+
+```go:byte.go showLineNumbers
+package main
+
+import (
+   "fmt"
+   "reflect"
+   "unsafe"
+   )
+
+func main() {
+   var r byte = 'a'
+
+   //Print Size
+   fmt.Printf("Size: %d\n", unsafe.Sizeof(r))
+
+   //Print Type
+   fmt.Printf("Type: %s\n", reflect.TypeOf(r))
+
+   //Print Character
+   fmt.Printf("Character: %c\n", r)
+   s := "abc"
+
+   //This will the decimal value of byte
+   fmt.Println([]byte(s))
+}
+```
+
+### Rune
+
+Rune adalah tipe data integer unik yang digunakan untuk menyimpan karakter Unicode pada Go. Rune bisa digunakan sebagai tipe data alternatif untuk int32. Nilai-nilai rune dapat diakses melalui tabel Unicode yang menentukan karakter-karakter unik dan nilai mereka.
+
+```go:rune.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+   var a rune = 'A'
+   fmt.Println(a)  // 65
+}
+```
+
+Dalam contoh di atas, kita menggunakan tipe data rune untuk menyimpan karakter 'A'. Karena 'A' adalah karakter Unicode, maka nilainya adalah 65. Kita bisa mencetak nilai tersebut dengan menggunakan fmt.Println().
+
+## For, Range
+
+Penggunaan for di golang mirip dengan bahasa pemogramana lainnya.
+
+```go:for.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+
+	i := 1
+	for i <= 3 {
+		fmt.Println(i)
+		i = i + 1
+	}
+
+	for j := 7; j <= 9; j++ {
+		fmt.Println(j)
+	}
+
+	for {
+		fmt.Println("loop")
+		break
+	}
+
+	for n := 0; n <= 5; n++ {
+		if n%2 == 0 {
+			continue
+		}
+		fmt.Println(n)
+	}
+}
+
+```
+
+Kata kunci "range" pada bahasa pemrograman Go digunakan dalam perulangan for untuk mengiterasi atau melakukan perulangan pada sebuah koleksi seperti array, slice, string, map, atau channel. Kata kunci range akan mengembalikan nilai indeks dan nilai dari setiap item dalam koleksi tersebut.
+
+```go:range.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+
+   nums := []int{2, 3, 4}
+   sum := 0
+   for _, num := range nums {
+      sum += num
+   }
+   fmt.Println("sum:", sum)
+
+   for i, num := range nums {
+      if num == 3 {
+         fmt.Println("index:", i)
+      }
+   }
+
+   kvs := map[string]string{"a": "apple", "b": "banana"}
+   for k, v := range kvs {
+      fmt.Printf("%s -> %s\n", k, v)
+   }
+
+   for k := range kvs {
+      fmt.Println("key:", k)
+   }
+
+   for i, c := range "go" {
+      fmt.Println(i, c)
+   }
+}
+```
+
+## If, Switch
+
+```go:if.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+	x := 10
+	y := 20
+	if x > y {
+		fmt.Println("x lebih besar dari y")
+	} else if x == y {
+		fmt.Println("x sama dengan y")
+	} else {
+		fmt.Println("x lebih kecil dari y")
+	}
+}
+```
+
+```go:switch.go showLineNumbers
+package main
+
+import "fmt"
+
+func main() {
+	x := 10
+	switch x {
+	case 1:
+		fmt.Println("Nilai x adalah 1")
+	case 10:
+		fmt.Println("Nilai x adalah 10")
+	default:
+		fmt.Println("Nilai x tidak ditemukan")
+	}
+}
+
+```
+
+## Errors, Panic, Recover
+
+Error adalah bentuk umum dari pesan kesalahan yang muncul saat menjalankan program Go. Fungsi built-in error digunakan untuk membuat dan memproses error.untuk menggunakannya kamu bisa import library errors nya dan gunakan seperti ini.
+
+```go:errors.go {4,10} showLineNumbers
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func division(a, b float64) (float64, error) {
+	if b == 0 {
+		return 0, errors.New("Tidak bisa dibagi dengan 0")
+	}
+	return a / b, nil
+}
+
+func main() {
+	result, err := division(10, 0)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(result)
+	}
+}
+
+```
+
+Panic adalah kondisi dimana program Go mengalami error fatal dan tidak bisa melanjutkan eksekusi. Fungsi panic dapat digunakan untuk memicu panic.
+
+```go:panic.go {13} showLineNumbers
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered:", r)
+		}
+	}()
+	panic("Panic Error")
+}
+
+```
+
+Fungsi recover digunakan untuk memulihkan program Go dari kondisi panic. recover harus digunakan dalam fungsi yang didefinisikan dengan defer.
+
+```go:recover.go {8-9} showLineNumbers
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered:", r)
+		}
+	}()
+	panic("Panic Error")
+}
+
+```
+
+## Function
+
+Function adalah bagian dari program yang memiliki tugas tertentu. Di Go, function dapat dideklarasikan dan digunakan kembali dalam program. Fungsi dapat memiliki input (parameter) dan output (nilai kembalian).
+
+Contoh penulisan function di Go:
+
+```go
+func add(a int, b int) int {
+    return a + b
+}
+```
+
+Code fullnya seperti ini :
+
+```go:function.go showLineNumbers
+package main
+
+import "fmt"
+
+func add(a int, b int) int {
+	return a + b
+}
+
+func main() {
+	result := add(1, 3)
+	fmt.Println(result)
+}
+
+```
+
+Beberapa fitur unik dalam menggunakan function di Go adalah:
+
+### Multiple return values
+
+Go memungkinkan function untuk mengembalikan beberapa nilai sekaligus. Ini berguna ketika kita ingin mengembalikan lebih dari satu hasil dari sebuah function.
+Contoh:
+
+```go
+func swap(a, b int) (int, int) {
+    return b, a
+}
+```
+
+Function swap memiliki 2 parameter a dan b yang bertipe int, dan mengembalikan 2 nilai int setelah menukar posisi a dan b.
+
+```go
+x, y := swap(1, 2)
+```
+
+Pada contoh ini, nilai x akan menjadi 2 dan y akan menjadi 1.
+
+### Anonymous functions
+
+Go menyediakan fitur anonymous functions, yaitu function yang tidak memiliki nama dan hanya digunakan pada satu baris saja. Anonymous functions sering digunakan sebagai closure atau sebagai argument dari function lain.
+
+```go
+  value := func(){
+      fmt.Println("Welcome! to GeeksforGeeks")
+  }
+  value()
+```
+
+### Closure
+
+Closure adalah sebuah function yang menyimpan referensi ke variabel-variabel yang ada di lingkungan yang lebih luas. Closure memungkinkan function untuk mengakses dan memodifikasi variabel-variabel di lingkungan yang lebih luas, meskipun lingkungan tersebut sudah tidak aktif.
+
+```go
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+add := adder()
+fmt.Println(add(1)) // 1
+fmt.Println(add(2)) // 3
+fmt.Println(add(3)) // 6
+```
+
+### Recursion
+
+Recursion adalah metode pemrograman di mana suatu function memanggil dirinya sendiri sebagai bagian dari solusinya. Dalam Go, function dapat memanggil dirinya sendiri seperti halnya function pada bahasa pemrograman lainnya.
+
+```go
+func factorial(n int) int {
+	if n == 0 {
+		return 1
+	}
+	return n * factorial(n-1)
+}
+
+fmt.Println(factorial(5)) // 120
+```
+
+## Type Casting
+
+Type casting adalah proses mengubah tipe data suatu variabel menjadi tipe data lain. Dalam Go, type casting dilakukan dengan menggunakan operator tipe data sebagai target.
+
+```go
+var a float64 = 5.6
+var b int = int(a)
+
+fmt.Println(b) // 5
+```
+
+## Packages
+
+Penggunaan package telah kita gunakan pada code helloworld, setiap program go dimulai dengan package utama.
+dan untuk import package bisa kalian lihat di line 3 kita mengimport package fmt.
+
+```go {1,3} showLineNumbers
+package main
+
+import "fmt"
+
+func main(){
+   fmt.Println("Hello World")
+}
+
+
+```
+
+kalau kita ingin import package lain seperti contohnya kita akan gunakan package math.
+
+```go {4,8} showLineNumbers
+package main
+
+import "fmt"
+import "math"
+
+func main(){
+   fmt.Println("Hello World")
+   fmt.Println(math.Max(24, 50))
+}
+
+
+```
+
+untuk cari package go kalian bisa cari di web ini https://pkg.go.dev/
+
+## Array
+
+Array di Golang adalah jenis data yang menyimpan kumpulan elemen dengan tipe data yang sama dan ukuran tetap yang ditentukan pada saat deklarasi. misal kita ingin menyimpan array hari maka kita bisa buat seperti ini
+
+```go {1}
+var days = [7]string{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
+
+fmt.Println(days)
+```
+
+## Slice
+
+Slice di Golang adalah tipe data dinamis yang dapat dianggap sebagai bagian dari sebuah array. Slice memungkinkan kita untuk membuat array dengan ukuran yang dapat berubah secara dinamis. Berikut adalah contoh deklarasi slice di Golang:
+
+```go {1}
+var mySlice []int
+mySlice = append(mySlice, 6)
+mySlice = append(mySlice, 10)
+fmt.Println(mySlice)
+```
+
+## Maps
+
+Maps di Golang adalah tipe data yang digunakan untuk menyimpan data dalam bentuk pasangan key-value (kunci-nilai), di mana setiap kunci harus unik dan tidak boleh duplikat. Maps dideklarasikan dengan menggunakan tipe data map[keyType]valueType, di mana keyType adalah tipe data kunci (key) dan valueType adalah tipe data nilai (value). Berikut adalah contoh deklarasi maps di Golang:
+
+```go {1}
+var myMap = map[string]int{"one": 1, "two": 2, "three": 3}
+fmt.Println(myMap)
+fmt.Println(myMap["two"])
+```
+
+## Struct
+
+Struct di Golang adalah tipe data yang digunakan untuk menyimpan sekumpulan nilai terkait dalam satu variabel. Struct mirip dengan record atau class di bahasa pemrograman lain.
+
+Berikut adalah contoh penggunaan struct di Golang :
+
+```go
+type Person struct {
+    name string
+    age  int
+    address string
+}
+
+func main() {
+    var p Person
+    p.name = "John Doe"
+    p.age = 30
+    p.address = "123 Main St"
+
+    fmt.Printf("Name: %s\n", p.name)
+    fmt.Printf("Age: %d\n", p.age)
+    fmt.Printf("Address: %s\n", p.address)
+}
+```
