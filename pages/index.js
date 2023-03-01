@@ -26,8 +26,8 @@ export default function Home({ posts }) {
           </h1>
           <h2 className="mb-4 text-gray-700 dark:text-gray-200">Backend Developer</h2>
           <p className="mb-16 text-gray-600 dark:text-gray-400">
-            I am now working remotely as a Backend Developer at Escredia.
-            <br /> some projects that I have made using Laravel.
+            I am currently working remotely as a Backend Developer at Escredia.
+            <br /> I have made some projects using laravel.
           </p>
         </div>
         <div className="relative mb-8 ml-auto mr-auto w-[120px] sm:mb-0 sm:w-[176px]">

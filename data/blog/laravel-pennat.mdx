@@ -1,0 +1,60 @@
+---
+title: 'Laravel Pennat'
+date: '2023-02-10'
+lastmod: '2023-02-10'
+tags: ['laravel', 'tutorial']
+draft: false
+summary: 'Laravel Pennant adalah package baru di laravel 10 yang dibuat oleh team corenya laravel, laravel pennat yang memberikan featute flag.'
+authors: ['default']
+---
+
+Laravel Pennant adalah package baru di laravel 10 yang dibuat oleh team corenya laravel, laravel pennat yang memberikan featute flag, yang datanya disimpan di database, dan bisa di akses di blade maupun di controller. untuk menginstallnya bisa lewat composer seperti berikut :
+
+```
+composer require laravel/pennant
+```
+
+Jangan lupa kamu publish vendor dan migrate, karena akan menambah satu table bawaan dari laravel pennatnya
+
+```
+php artisan vendor:publish --provider="Laravel\Pennant\PennantServiceProvider"
+php artisan migrate
+```
+
+Feature nya dapat di define di AppServiceProvider contohnya, kita akan membuat feature untuk cek apakah user bisa akses dashboard beta atau tidak seperti berikut :
+
+```php:AppServiceProvider.php
+public function boot(): void
+{
+    Feature::define('betaTester', fn (User $user) => match (true) {
+        $user->isTester() => true,
+        default => false,
+    });
+}
+```
+
+Untuk model Usernya kamu harus menambahkan function untuk mengetahui user ini tester atau bukan, contohnya seperti ini, kamu juga bisa membuat field baru di db untuk role misalnya.
+
+```php:User.php
+public function isTester(){
+return $this->email === "tester@website.com";
+}
+```
+
+Dan pada controller kita bisa menamambahkan code `$user->feature->active('nama fitur')` untuk mengcheck fiturnya.
+
+```php:UserController.php {2}
+$user = User::find($id);
+if ($user->features()->active('betaTester')) {
+    return "dashboard beta";
+}
+return "dashboard";
+```
+
+dan kita bisa tambah route terbaru untuk mengecheck nya, nanti jika kamu masukan id user tester maka akan ke dashboard beta, dan jika tidak ke dashboard biasa.
+
+```php:Web.php
+Route::get('/check-user/{id}',[UserController::class,'index']);
+```
+
+Dengan fitur flag yang disediakan oleh Laravel Pennant, Anda dapat dengan mudah menguji dan memperkenalkan fitur baru pada aplikasi Anda dengan lebih aman dan terkontrol. Anda juga dapat melakukan pengelolaan fitur dengan mudah, sehingga memudahkan Anda dalam mengelola dan memonitor fitur pada aplikasi Anda.
